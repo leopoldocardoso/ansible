@@ -1,0 +1,19 @@
+---
+- name: Update VMs
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.11
+
+  tasks:
+  - name: Dpkg Configure
+    ansible.builtin.command: dpkg --configure -a
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Update all packages to latest version
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  

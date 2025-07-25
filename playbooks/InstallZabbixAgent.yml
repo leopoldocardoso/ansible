@@ -1,0 +1,48 @@
+
+- name: Install Zabbix Agent
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.11
+
+  tasks:
+  - name: Download Package Zabbix Release for Ubuntu/Debian
+    ansible.builtin.get_url:
+      url: "https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian11_all.deb"
+      dest: "{{ ansible_env.HOME }}/zabbix-release_5.4-1+debian11_all.deb"
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Install Zabbix Release Package
+    ansible.builtin.apt:
+      deb: "{{ ansible_env.HOME }}/zabbix-release_5.4-1+debian11_all.deb" # baixa direto no home do usuário usado pelo ansible, neste caso root
+      state: present
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Update Package Ubuntu/Debian
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Install Zabbix Agent Ubuntu/Debian
+    ansible.builtin.apt:
+      name: zabbix-agent2
+      update_cache: yes
+      state: present
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Config zabbix_agent2.conf
+    ansible.builtin.copy:
+      src:  .././files/zabbix_agent2.conf
+      dest: /etc/zabbix/zabbix_agent2.conf
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Start Zabbix Agent Service
+    ansible.builtin.systemd:
+      name: zabbix-agent2
+      state: restart
+      enabled: yes
+
+

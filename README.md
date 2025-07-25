@@ -66,3 +66,22 @@ ansible-playbook -i hosts.ini UpdateSystem.yml
 ansible-playbook -i hosts.ini addusers.yml
 ansible-playbook -i hosts.ini InstallTools.yml
 ansible-playbook -i hosts.ini InstallZabbixAgent.yml
+```
+
+## Observações
+
+- É recomendado executar o playbook `UpdateSystem.yml` antes dos demais, para garantir que os pacotes estejam atualizados.
+- Certifique-se de revisar e personalizar as variáveis, especialmente:
+  - Lista de usuários em `addusers.yml`
+  - Endereço do servidor Zabbix em `InstallZabbixAgent.yml`
+- O playbook `InstallZabbixAgent.yml` depende do acesso ao repositório oficial do Zabbix via HTTPS.
+- Verifique regras de firewall e portas (como a `10050/TCP`) se for necessário o monitoramento remoto via Zabbix.
+
+## Requisitos
+
+- Python 3 instalado na máquina de controle
+- Ansible 2.9+ instalado localmente
+- Acesso SSH funcional aos servidores gerenciados
+- Servidores gerenciados baseados em Debian/Ubuntu
+- Permissões de sudo nos hosts de destino
+- Conexão com a internet para instalação de pacotes

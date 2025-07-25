@@ -9,16 +9,18 @@ Este repositório contém uma série de playbooks Ansible para provisionamento b
 Atualiza os pacotes do sistema operacional para a versão mais recente disponível.
 
 **Tarefas executadas:**
+
 - Atualização da lista de pacotes (`apt update`)
 - Atualização dos pacotes instalados (`apt upgrade`)
 
 ---
 
-### 2. `addusers.yml`
+### 2. `AddUsers.yml`
 
 Adiciona usuários ao sistema com permissões específicas e configurações básicas de segurança.
 
 **Tarefas executadas:**
+
 - Criação de usuários
 - Inclusão em grupos (ex: `sudo`)
 - Configuração de senha ou chave SSH (se aplicável)
@@ -30,6 +32,7 @@ Adiciona usuários ao sistema com permissões específicas e configurações bá
 Instala ferramentas e utilitários essenciais para administração e diagnóstico de sistemas.
 
 **Ferramentas instaladas:**
+
 - `curl`
 - `vim`
 - `htop`
@@ -43,6 +46,7 @@ Instala ferramentas e utilitários essenciais para administração e diagnóstic
 Instala e configura o Zabbix Agent, permitindo o monitoramento do servidor por meio da plataforma Zabbix.
 
 **Tarefas executadas:**
+
 - Download do pacote oficial do repositório Zabbix
 - Instalação do repositório
 - Instalação do agente Zabbix

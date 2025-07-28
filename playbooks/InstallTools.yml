@@ -1,7 +1,7 @@
 - name: Install Tools
   hosts: all
   vars:
-    ansible_python_interpreter: /usr/bin/python3.11
+    ansible_python_interpreter: auto
 
   tasks:
   - name: Install required packages Ubuntu/Debian
@@ -15,3 +15,15 @@
       update_cache: yes
       state: present
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Install required packages Ubuntu/Debian
+    ansible.builtin.yum:
+      name:
+        - git
+        - net-tools
+        - curl
+        - wget
+        - vim
+      update_cache: yes
+      state: present
+    when: ansible_distribution == "Oracle"

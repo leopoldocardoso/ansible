@@ -2,30 +2,30 @@
 - name: Add Users
   hosts: all
   vars:
-    ansible_python_interpreter: /usr/bin/python3.11
+    ansible_python_interpreter: auto
 
   tasks:
 
   - name: Add users
     ansible.builtin.user:
-      name: debian
+      name: lp
       shell: /bin/bash
       create_home: yes
       state: present
 
   - name: Create directory .ssh
     ansible.builtin.file:
-      path: /home/debian/.ssh
+      path: /home/lp/.ssh
       state: directory
-      owner: debian
-      group: debian
+      owner: lp
+      group: lp
       mode: '0700'
 
   - name: Add public key to authorized_keys
     ansible.builtin.copy:
       src: /home/leopoldo/.ssh/gcp_personal.pub
-      dest: /home/debian/.ssh/authorized_keys
-      owner: debian
-      group: debian
+      dest: /home/lp/.ssh/authorized_keys
+      owner: lp
+      group: lp
       mode: '0600'
 

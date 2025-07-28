@@ -80,6 +80,7 @@ ansible-playbook -i hosts.ini InstallZabbixAgent.yml
 ## Requisitos
 
 - Python 3 instalado na máquina de controle
+- Instalar Python 3.9 ou superior tratando-se de Oracle Linux
 - Ansible 2.9+ instalado localmente
 - Acesso SSH funcional aos servidores gerenciados
 - Servidores gerenciados baseados em Debian/Ubuntu

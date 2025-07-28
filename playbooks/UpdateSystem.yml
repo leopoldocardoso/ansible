@@ -2,8 +2,7 @@
 - name: Update VMs
   hosts: all
   vars:
-    ansible_python_interpreter: /usr/bin/python3.11
-
+    ansible_python_interpreter: auto
   tasks:
   - name: Dpkg Configure
     ansible.builtin.command: dpkg --configure -a
@@ -16,4 +15,9 @@
       update_cache: yes
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
-  
+  - name: Update all packages to latest version
+    ansible.builtin.yum:
+      name: "*"
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "Oracle"
